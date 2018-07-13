@@ -1,0 +1,19 @@
+#!/usr/bin/env php
+<?php
+require_once __DIR__.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'autoload.php';
+
+use Symfony\Component\Console\Application;
+use CsvXmlParser\Command\Parser;
+
+/**
+ * Directories condigurations path's
+ */
+define('DIR_CONFIG', __DIR__.DIRECTORY_SEPARATOR.'config');
+define('DIR_BACKUP', dirname(dirname(__DIR__)).DIRECTORY_SEPARATOR.'backups');
+
+/**
+ * App init
+ */
+$app = new Application('CsvXmlParser', 'v1.0.0');
+$app->add(new Parser());
+$app->run();

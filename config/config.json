@@ -1,0 +1,7 @@
+{
+    "private-fields": [
+      "email",
+      "address",
+      "phone"
+    ]
+}

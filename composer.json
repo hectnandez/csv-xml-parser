@@ -1,0 +1,24 @@
+{
+    "name": "hectnandez/csv-xml-parser",
+    "description": "Console app to convert CSV into XML files.",
+    "type": "project",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Hector Hernandez",
+            "email": "hectnandez@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "CsvXmlParser\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "php" : ">=7.2.1",
+        "symfony/console": "^4.0",
+        "symfony/filesystem": "^4.0",
+        "box/spout": "^2.7"
+    }
+}
