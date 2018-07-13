@@ -9,7 +9,6 @@
 namespace CsvXmlParser\Utils;
 
 use Box\Spout\Common\Type;
-use Box\Spout\Reader\CSV\Reader;
 use Box\Spout\Reader\ReaderFactory;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -34,6 +33,7 @@ class File
      * @param $filename
      * @return array|bool
      * @throws \Box\Spout\Common\Exception\IOException
+     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
      * @throws \Box\Spout\Reader\Exception\ReaderNotOpenedException
      */
     public function getContent($filename){
@@ -42,6 +42,7 @@ class File
             $this->output->writeln('<error>The file is not a valid .csv extension</error>');
             return false;
         }
+        echo $file;
         $data = $this->getData($file);
         if(empty($data)){
             $this->output->writeln('<error>The file is empty</error>');
@@ -78,17 +79,28 @@ class File
      * @param $filename
      * @return array
      * @throws \Box\Spout\Common\Exception\IOException
+     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
      * @throws \Box\Spout\Reader\Exception\ReaderNotOpenedException
      */
     private function getData($filename){
         $data = array();
-        $reader = new Reader();
-        $reader->setFieldDelimiter($this->detectDelimiter($filename));
+        $reader = ReaderFactory::create(Type::CSV);
         $reader->open($filename);
+        $header = array();
         foreach ($reader->getSheetIterator() as $sheet) {
+            $countRow = 0;
             foreach ($sheet->getRowIterator() as $row) {
-                $data[] = $row;
-                break;
+                if($countRow === 0){
+                    $header = $row;
+                    $countRow++;
+                    continue;
+                }
+                $dataRow = array();
+                foreach ($row as $keyValue => $fieldValue){
+                    $dataRow[$header[$keyValue]] = $fieldValue;
+                }
+                $data[] = $dataRow;
+                $countRow++;
             }
         }
         $reader->close();

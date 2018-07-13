@@ -9,6 +9,7 @@
 namespace CsvXmlParser\Command;
 
 use CsvXmlParser\Utils\File;
+use CsvXmlParser\Utils\XmlGenerator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -36,7 +37,14 @@ class Parser extends Command
         try{
             $file = new File($output);
             $data = $file->getContent($originalFile);
-            print_r($data);
+            if(empty($data)){
+                die();
+            }
+            if(!XmlGenerator::generate($data, pathinfo($originalFile, PATHINFO_FILENAME))){
+                $output->writeln('<errror>Error trying to convert data into XML</errror>');
+                die();
+            }
+            echo 'bien';
         } catch (\Exception $ex){
             $output->writeln('<errror>ERROR: '.$ex->getMessage().' | File: '.$ex->getFile().' Line: '.$ex->getLine().'</errror>');
             die();
