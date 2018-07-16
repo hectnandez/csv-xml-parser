@@ -1,5 +1,5 @@
 {
-    "private-fields": [
+    "private_fields": [
       "email",
       "address",
       "phone"

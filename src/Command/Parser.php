@@ -44,7 +44,7 @@ class Parser extends Command
                 $output->writeln('<errror>Error trying to convert data into XML</errror>');
                 die();
             }
-            echo 'bien';
+            $output->writeln('<info>Done!</info>');
         } catch (\Exception $ex){
             $output->writeln('<errror>ERROR: '.$ex->getMessage().' | File: '.$ex->getFile().' Line: '.$ex->getLine().'</errror>');
             die();

@@ -9,7 +9,7 @@ use CsvXmlParser\Command\Parser;
  * Directories condigurations path's
  */
 define('DIR_CONFIG', __DIR__.DIRECTORY_SEPARATOR.'config');
-define('DIR_BACKUP', dirname(dirname(__DIR__)).DIRECTORY_SEPARATOR.'backups');
+define('DIR_XML', __DIR__.DIRECTORY_SEPARATOR.'xml-generated');
 
 /**
  * App init

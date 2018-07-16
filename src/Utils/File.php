@@ -42,7 +42,6 @@ class File
             $this->output->writeln('<error>The file is not a valid .csv extension</error>');
             return false;
         }
-        echo $file;
         $data = $this->getData($file);
         if(empty($data)){
             $this->output->writeln('<error>The file is empty</error>');
